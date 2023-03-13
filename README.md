@@ -3,7 +3,7 @@
   <img alt="Version" src="https://img.shields.io/badge/version-0.1.1-blue.svg?cacheSeconds=2592000" />
 </p>
 
-> openai ChatGPT api reverse proxy service
+> openai ChatGPT api reverse proxy server
 
 ### ✨ [Demo]([chat.y1s1.host](https://proxy.y1s1.host/))
 
@@ -20,7 +20,7 @@ docker compose up -d
 ### Run with docker
 
 ```
-docker run --rm -it  -e "CHATGPT_URL=https://api.openai.com" -p 7002:3000 openailabs/proxy-api:main
+docker run --rm -it -e "RATELIMIT=1000"  -e "CHATGPT_URL=https://api.openai.com" -p 7002:3000 openailabs/proxy-api:main
 ```
 
 ```bash
@@ -35,6 +35,8 @@ WARNING: The requested image's platform (linux/amd64) does not match the detecte
 Config: Config { chatgpt_url: "https://api.openai.com", ratelimit: 100 }
 Listening on http://0.0.0.0:3000
 ```
+
+### Invoke API with reverse proxy server
 
 ```bash
 curl -sss --location 'http://localhost:7002/v1/chat/completions' \
@@ -77,3 +79,7 @@ Give a ⭐️ if this project helped you!
 
 ***
 _This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
+
+## Thanks
+
+Very special thanks to original author [fuergaosi233](https://github.com/fuergaosi233/chatgpt-proxy-server)

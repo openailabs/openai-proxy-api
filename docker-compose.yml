@@ -6,3 +6,4 @@ services:
       - 7003:3000
     environment: 
       - CHATGPT_URL=https://api.openai.com
+      - RATELIMIT=1000

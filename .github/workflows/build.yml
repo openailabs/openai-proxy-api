@@ -1,0 +1,68 @@
+name: Build Java JAR
+
+on: [push, pull_request, workflow_dispatch]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  build_rust:
+    name: rust on ${{ matrix.os }} ${{ matrix.arch }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        arch:
+          - aarch64
+          - x86_64
+        exclude:
+          - os: windows-latest
+          - arch: arm64
+        include:
+          - os: windows-latest
+            arch: x86_64
+            outdir: windows_x86_64
+            target: x86_64-pc-windows-gnu
+
+          - os: macos-latest
+            arch: aarch64
+            outdir: osx_aarm64
+            target: aarch64-apple-darwin
+
+          - os: macos-latest
+            arch: x86_64
+            outdir: osx_x86_64
+            target: x86_64-apple-darwin
+
+          - os: ubuntu-latest
+            arch: aarch64
+            outdir: linux_aarm64
+            target: aarch64-unknown-linux-gnu
+
+          - os: ubuntu-latest
+            arch: x86_64
+            outdir: linux_x86_64
+            target: x86_64-unknown-linux-gnu
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          # stable doesn't have --out-dir
+          toolchain: nightly
+          override: true
+
+      - name: Build
+        working-directory: ./
+        # TODO: 32bit vs 64bit?
+        # https://github.com/scijava/native-lib-loader
+        run: cargo build --release -Z unstable-options --out-dir ../build/natives/${{ matrix.outdir }}/
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: natives
+          path: ./build/natives/*

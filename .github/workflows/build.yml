@@ -60,7 +60,7 @@ jobs:
         working-directory: ./
         # TODO: 32bit vs 64bit?
         # https://github.com/scijava/native-lib-loader
-        run: cargo build --release -Z unstable-options --out-dir ../build/natives/${{ matrix.outdir }}/
+        run: cargo build --release -Z unstable-options --out-dir ./build/natives/${{ matrix.outdir }}/
 
       - uses: actions/upload-artifact@v3
         with:

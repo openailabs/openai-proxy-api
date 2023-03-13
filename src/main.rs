@@ -4,7 +4,7 @@ use std::str::FromStr;
 
 use core::fmt::Debug;
 
-use chatgpt_proxy_server::*;
+use proxy_api::*;
 use hyper::server::conn::AddrStream;
 use hyper::service::{make_service_fn, service_fn};
 use hyper::{Body, Client, Request, Response, Server, Uri};
@@ -83,7 +83,7 @@ async fn proxy(req: Request<Body>) -> Result<Response<Body>, hyper::Error> {
     };
     // Create new uri
     let uri = Uri::from_str(&format!("{}{}", CONFIG.chatgpt_url, path_and_query,)).unwrap();
-    //println!("uri: {:?}", uri);
+    println!("uri: {:?}", uri);
     // if req header Authorization is null, set empty
     let authorization = if let Some(value) = req.headers().get("Authorization") {
         value.to_str().unwrap()

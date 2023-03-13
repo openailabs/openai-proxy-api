@@ -83,7 +83,7 @@ async fn proxy(req: Request<Body>) -> Result<Response<Body>, hyper::Error> {
     };
     // Create new uri
     let uri = Uri::from_str(&format!("{}{}", CONFIG.chatgpt_url, path_and_query,)).unwrap();
-    println!("uri: {:?}", uri);
+    // println!("uri: {:?}", uri);
     // if req header Authorization is null, set empty
     let authorization = if let Some(value) = req.headers().get("Authorization") {
         value.to_str().unwrap()

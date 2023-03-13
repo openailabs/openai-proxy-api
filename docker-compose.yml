@@ -1,0 +1,8 @@
+version: '3'
+services:
+  proxy-api:
+    image: openailabs/proxy-api:main
+    ports: 
+      - 7003:3000
+    environment: 
+      - CHATGPT_URL=https://api.openai.com

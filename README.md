@@ -1,4 +1,4 @@
-<h1 align="center">Welcome to chatgpt-proxy-server 👋</h1>
+<h1 align="center">Welcome to use proxy-api as your reverse proxy server 👋</h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-0.1.1-blue.svg?cacheSeconds=2592000" />
 </p>
@@ -8,6 +8,16 @@
 ### ✨ [Demo]([chat.y1s1.host](https://proxy.y1s1.host/))
 
 ## Usage
+
+### Run with docker compose
+
+```bash
+curl -o docker-compose.yml https://github.com/openailabs/proxy-api/raw/main/docker-compose.yml
+
+docker compose up -d
+```
+
+### Run with docker
 
 ```
 docker run --rm -it  -e "CHATGPT_URL=https://api.openai.com" -p 7002:3000 openailabs/proxy-api:main

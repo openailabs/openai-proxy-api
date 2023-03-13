@@ -13,6 +13,6 @@ RUN cargo build --release
 # Use slim image to place build result
 FROM debian:stable-slim
 RUN apt-get update && apt-get install -y ca-certificates
-COPY --from=builder ./app/target/release/chatgpt-proxy-server .
+COPY --from=builder ./app/target/release/proxy-api .
 EXPOSE 3000
-CMD ["./chatgpt-proxy-server"]
+CMD ["./proxy-api"]
